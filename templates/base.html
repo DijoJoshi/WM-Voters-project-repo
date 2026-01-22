@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f7f6; color: #333; }
+        
+        nav { 
+            background-color: #121212; 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { color: #007bff; font-size: 1.4rem; font-weight: bold; text-decoration: none; }
+        
+        nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+        
+        nav a { color: #fff; text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        
+        nav a:hover { color: #007bff; }
+
+        .container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+        
+        .user-info { color: #007bff; font-size: 0.85rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">🗳️ Online Voting</a>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/results">Results</a></li>
+        <li><a href="/candidates">Candidates</a></li>
+        {% if current_user.is_authenticated %}
+            <li class="user-info">Welcome, {{ current_user.name }}</li>
+            <li><a href="/logout" style="color: #ff4d4d;">Logout</a></li>
+        {% else %}
+            <li><a href="/">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

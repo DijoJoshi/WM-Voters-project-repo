@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .page-title { text-align: center; margin-bottom: 40px; color: #121212; }
+    
+    .cards { 
+        display: flex; 
+        justify-content: center; 
+        gap: 30px; 
+        flex-wrap: wrap; 
+    }
+
+    .card { 
+        background: #fff; 
+        border: 1px solid #e0e0e0; 
+        border-radius: 8px; 
+        width: 320px; 
+        padding: 25px; 
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card h2 { color: #007bff; margin: 0 0 10px 0; }
+    
+    .bio { color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+
+    .linkedin-link { 
+        display: inline-block; 
+        margin-bottom: 20px; 
+        color: #0077b5; 
+        text-decoration: none; 
+        font-size: 0.85rem; 
+    }
+
+    .vote-btn { 
+        background-color: #007bff; 
+        color: #fff; 
+        border: none; 
+        padding: 12px 25px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold;
+        width: 100%;
+        transition: 0.2s;
+    }
+
+    .vote-btn:hover { background-color: #0056b3; }
+
+    .voted-msg { color: #28a745; font-weight: bold; }
+</style>
+
+<h1 class="page-title"> Vote for Your Candidate</h1>
+
+<div class="cards">
+    {% for c in candidates %}
+    <div class="card">
+        <h2>{{ c.name }}</h2>
+        <p class="bio">{{ c.bio }}</p>
+        
+        <a href="{{ c.linkedin }}" target="_blank" class="linkedin-link">🔗 View LinkedIn Profile</a>
+
+        {% if not current_user.has_voted %}
+        <form method="POST" action="{{ url_for('vote', cid=c.id) }}">
+            <button type="submit" class="vote-btn">Cast Your Vote</button>
+        </form>
+        {% else %}
+        <p class="voted-msg">✔️ You have already voted</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

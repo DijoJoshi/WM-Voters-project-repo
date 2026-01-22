@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election Results</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        h3 {
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #eef3ff;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🗳 Election Results</h1>
+
+    <!-- Vote Counts -->
+    <div class="card">
+        <h3>Candidate Vote Counts</h3>
+        <table>
+            <tr>
+                <th>Candidate</th>
+                <th>Total Votes</th>
+            </tr>
+            {% for candidate in candidates %}
+            <tr>
+                <td>{{ candidate.name }}</td>
+                <td>{{ candidate.vote_count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Voters -->
+    <div class="card">
+        <h3>Voter Registry</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            {% for voter in voters %}
+            <tr>
+                <td>{{ voter.name }}</td>
+                <td>{{ voter.email }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="center">
+            <a title="Click to Go Back to Voting Page" href="{{ url_for('view_candidates') }}" class="btn tooltip">
+                ⬅ Back to Voting Page
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
